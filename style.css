@@ -4,7 +4,6 @@
     --bg: #000000;
     --fg: #ffffff;
     --acc: #00f3ff;
-    /* Electric Cyber Blue */
     --acc-soft: rgba(0, 243, 255, 0.1);
     --border: rgba(255, 255, 255, 0.1);
     --glass: rgba(255, 255, 255, 0.03);
@@ -16,6 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -74,6 +74,7 @@ body {
     font-weight: 900;
     letter-spacing: -1px;
     margin-bottom: 2rem;
+    text-align: center;
 }
 
 .loader-bar-wrap {
@@ -124,6 +125,7 @@ nav.scrolled {
 .nav-links {
     display: flex;
     gap: 3rem;
+    align-items: center;
 }
 
 .nav-links a {
@@ -141,9 +143,46 @@ nav.scrolled {
     opacity: 1;
 }
 
+/* Mobile Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-toggle span:first-child {
+    top: 0;
+}
+
+.menu-toggle span:last-child {
+    bottom: 0;
+}
+
+.menu-open .menu-toggle span:first-child {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-open .menu-toggle span:last-child {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
 /* Sections */
 section {
-    padding: 150px 10%;
+    padding: 120px 5%;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -154,13 +193,13 @@ section {
 
 .sec-head h2 {
     font-family: var(--font-h);
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 0.9;
-    letter-spacing: -3px;
+    letter-spacing: -2px;
 }
 
 .sec-head p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #666;
     margin-top: 1rem;
     letter-spacing: 0.2rem;
@@ -172,7 +211,7 @@ section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 100px;
+    padding-top: 80px;
 }
 
 .hero-grid {
@@ -180,14 +219,15 @@ section {
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
     align-items: center;
+    width: 100%;
 }
 
 .hero-content h1 {
     font-family: var(--font-h);
-    font-size: clamp(4rem, 8vw, 9rem);
+    font-size: clamp(3.5rem, 10vw, 9rem);
     line-height: 0.85;
     font-weight: 900;
-    letter-spacing: -5px;
+    letter-spacing: -4px;
     margin-bottom: 2rem;
 }
 
@@ -196,7 +236,7 @@ section {
 }
 
 .hero-content p {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2vw, 1.25rem);
     max-width: 500px;
     color: #888;
     margin-bottom: 3rem;
@@ -219,11 +259,6 @@ section {
     transition: all 1s ease;
 }
 
-.hero-img-box:hover .hero-img {
-    filter: grayscale(0) contrast(1);
-    transform: scale(1.05);
-}
-
 /* Focus Cards */
 .focus-grid {
     display: grid;
@@ -232,7 +267,7 @@ section {
 }
 
 .card {
-    padding: 3rem;
+    padding: 2.5rem;
     border-radius: 2rem;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -244,14 +279,9 @@ section {
 
 .card h3 {
     font-family: var(--font-h);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
     letter-spacing: -1px;
-}
-
-.card p {
-    color: #888;
-    font-size: 0.95rem;
 }
 
 /* Experience */
@@ -262,17 +292,12 @@ section {
     transition: 0.3s;
 }
 
-.exp-row:hover {
-    padding-left: 2rem;
-    background: rgba(255, 255, 255, 0.01);
-}
-
 .exp-side {
     width: 30%;
 }
 
 .exp-side p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #555;
 }
 
@@ -282,15 +307,15 @@ section {
 
 .exp-main h3 {
     font-family: var(--font-h);
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
     margin-bottom: 0.5rem;
 }
 
 .exp-main .role {
     color: var(--acc);
     font-weight: 500;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
     display: block;
 }
 
@@ -300,78 +325,86 @@ section {
     list-style: none;
     position: relative;
     padding-left: 1.5rem;
+    font-size: 0.95rem;
 }
 
-.exp-main li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--acc);
-}
-
-/* Stack Tags */
+/* Tags */
 .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .tag {
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 100px;
     border: 1px solid var(--border);
-    font-size: 0.9rem;
-    color: #666;
-    transition: 0.3s;
-}
-
-.tag:hover {
-    color: var(--fg);
-    border-color: var(--fg);
-    transform: translateY(-3px);
+    font-size: 0.85rem;
 }
 
 /* Footer & CTA */
 .cta-sec {
     text-align: center;
-    padding: 200px 10%;
+    padding: 15vw 5%;
 }
 
 .big-btn {
     font-family: var(--font-h);
-    font-size: 6vw;
+    font-size: clamp(3rem, 10vw, 8rem);
     font-weight: 900;
     color: var(--fg);
     text-decoration: none;
-    letter-spacing: -4px;
+    letter-spacing: -3px;
     line-height: 1;
     display: inline-block;
     transition: all 0.5s ease;
 }
 
-.big-btn:hover {
-    color: var(--acc);
-    transform: skewX(-5deg);
-}
-
-footer {
-    padding: 50px 10%;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #444;
-}
-
-/* Mobile */
+/* Responsive Overrides */
 @media (max-width: 1024px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
+    .menu-toggle {
+        display: block;
     }
 
-    .hero-content h1 {
-        font-size: 5rem;
-        letter-spacing: -3px;
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transform: translateY(-100%);
+        transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1000;
+    }
+
+    .menu-open .nav-links {
+        transform: translateY(0);
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+        letter-spacing: 0.2rem;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+
+    .hero-content p {
+        margin: 0 auto 3rem;
+    }
+
+    .hero-img-box {
+        max-width: 450px;
+        margin: 0 auto;
+        width: 100%;
     }
 
     .focus-grid {
@@ -380,11 +413,29 @@ footer {
 
     .exp-row {
         flex-direction: column;
-        gap: 2rem;
+        gap: 1rem;
     }
 
     .exp-side,
     .exp-main {
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 80px 5%;
+    }
+
+    .hero-content h1 {
+        letter-spacing: -2px;
+    }
+
+    .big-btn {
+        letter-spacing: -1px;
+    }
+
+    .exp-main h3 {
+        font-size: 1.4rem;
     }
 }

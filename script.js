@@ -1,12 +1,12 @@
 /* 
-  MUSA SULAIMAN — ROBUST GSAP ARCHITECTURE v2
-  Ultra-Smooth Reveal and Interaction
+  MUSA SULAIMAN — ROBUST GSAP ARCHITECTURE v2.1
+  Optimized for Mobile Responsiveness & Interactivity
 */
 
 document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // Initial Set: Start state for elements
+    // Initial Set
     gsap.set('.reveal-up', { y: 60, autoAlpha: 0 });
     gsap.set('nav', { y: -20, autoAlpha: 0 });
 
@@ -58,40 +58,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Glow Interaction
+    // 4. Mobile Menu Logic
+    const toggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('menu-open');
+        });
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            document.body.classList.remove('menu-open');
+        });
+    });
+
+    // 5. Interactions - Disabled/Toned down on mobile
     const g1 = document.getElementById('glow-1');
     const g2 = document.getElementById('glow-2');
     const heroImg = document.getElementById('hero-img');
+    const isMobile = window.innerWidth <= 1024;
 
-    document.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const xP = (clientX / window.innerWidth - 0.5);
-        const yP = (clientY / window.innerHeight - 0.5);
+    if (!isMobile) {
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const xP = (clientX / window.innerWidth - 0.5);
+            const yP = (clientY / window.innerHeight - 0.5);
 
-        // Suble glow following
-        gsap.to(g1, { x: clientX - 300, y: clientY - 300, duration: 2.5, ease: 'power3.out' });
-        gsap.to(g2, { x: (window.innerWidth - clientX) - 300, y: (window.innerHeight - clientY) - 300, duration: 3.5, ease: 'power3.out' });
+            gsap.to(g1, { x: clientX - 300, y: clientY - 300, duration: 2.5, ease: 'power3.out' });
+            gsap.to(g2, { x: (window.innerWidth - clientX) - 300, y: (window.innerHeight - clientY) - 300, duration: 3.5, ease: 'power3.out' });
 
-        // Hero 3D Tilt
-        if (heroImg) {
-            gsap.to(heroImg, {
-                rotationY: xP * 15,
-                rotationX: -yP * 15,
-                transformPerspective: 1200,
-                duration: 1.5,
-                ease: 'power2.out'
-            });
-        }
-    });
+            if (heroImg) {
+                gsap.to(heroImg, {
+                    rotationY: xP * 15,
+                    rotationX: -yP * 15,
+                    transformPerspective: 1200,
+                    duration: 1.5,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    }
 
-    // 5. Navbar Scroll Class
+    // 6. Smooth Scroll & Navbar Scroll Class
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('navbar');
         if (window.scrollY > 50) nav.classList.add('scrolled');
         else nav.classList.remove('scrolled');
     });
 
-    // 6. Smooth Scroll
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', (e) => {
             const h = link.getAttribute('href');
